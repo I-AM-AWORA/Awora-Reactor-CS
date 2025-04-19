@@ -28,4 +28,4 @@ Bu gizlilik politikası zaman zaman güncellenebilir. Herhangi bir değişiklik 
 
 ## İletişim
 
-Gizlilik politikamızla ilgili herhangi bir sorunuz varsa, lütfen bizimle iletişime geçin: \[iletişim.ekibi@example.com]
+Gizlilik politikamızla ilgili herhangi bir sorunuz varsa, lütfen bizimle iletişime geçin: \[devranaktas153@gmail.com]
