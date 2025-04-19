@@ -27,4 +27,4 @@ Bu proje, GNU Genel Kamu Lisansı (GPL 3.0) altında lisanslanmıştır. Projeni
 - Yazılımın her versiyonu ve türevleri aynı lisansla dağıtılmalıdır.
 
 ## İletişim
-- E-posta: devran.durmaz@example.com
+- E-posta: devran.durmaz@gmail.com
