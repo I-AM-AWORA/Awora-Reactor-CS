@@ -3,7 +3,7 @@
 [![Lisans](https://img.shields.io/badge/License-MIT%20OR%20Commercial-yellowgreen.svg)](LICENSE.md)
 ![Python](https://img.shields.io/badge/Python-%3E=3.6-blue.svg)
 
-Bu proje, nükleer reaktörlerin güvenlik analizini gerçekleştirmek amacıyla geliştirilmiş bir araçtır. Awora-FLX formülünü temel alarak, reaktördeki çeşitli fiziksel parametreleri (Termal Skor (TS), Basınç Skoru (BS), Nötron Skoru (NS), Radyasyon Skoru (RS)) analiz eder ve potansiyel risk seviyesini (G) değerlendirir. Projenin geliştirilmesinde yapay zeka bir asistan önemli bir rol oynamış, formüllerin oluşturulması ve kodun geliştirilmesi süreçlerinde Devran Durmaz'a yardımcı olmuştur.
+Bu proje, nükleer reaktörlerin güvenlik analizini gerçekleştirmek amacıyla geliştirilmiş bir araçtır. Awora-FLX formülünü temel alarak, reaktördeki çeşitli fiziksel parametreleri (Termal Skor (TS), Basınç Skoru (BS), Nötron Skoru (NS), Radyasyon Skoru (RS)) analiz eder ve potansiyel risk seviyesini (G) değerlendirir. Projenin geliştirilmesinde yapay zeka programları önemli bir asistan rolü oynamış, formüllerin oluşturulması ve kodun geliştirilmesi süreçlerinde Devran Durmaz'a yardımcı olmuştur.
 
 ## Lisans
 
