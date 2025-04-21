@@ -1,0 +1,49 @@
+# inputs.txt: Awora-FLX Formülü için Gerekli Veri Yapısı
+
+# Bu dosya, Awora-FLX formülü hesaplamaları için gerekli olan JSON veri yapısını açıklamaktadır.
+# input.json dosyası bu yapıya uygun olarak hazırlanmalıdır.
+
+{
+  "Olculen_Degerler": {
+    "Sicaklik_Farki": float,  # (dT) Ölçülen sıcaklık farkı (°C)
+    "Isı_Akışı": float,       # (Qnet) Ölçülen ısı akışı (J/s)
+    "Sıcaklık_Gradyanı": float, # (delT) Ölçülen sıcaklık gradyanı (°C/m)
+    "Basinc_Farki": float,    # (dP) Ölçülen basınç farkı (MPa)
+    "Gerilim": float,         # (sigma) Malzemenin ölçülen gerilimi (MPa)
+    "Notron_Akisi": float,    # (Φ) Ölçülen nötron akışı (n/cm²s)
+    "Fizyon_Zincir_Reaksiyonu": float, # (keff) Ölçülen fizyon zincir reaksiyonu verimliliği
+    "Radyasyon_Dozu": float,   # (Rdose) Ölçülen radyasyon dozu (Sv/saat)
+    "Pradiation": float       # Hesaplanan radyasyon dozu
+  },
+  "Referans_Degerleri": {
+    "Sicaklik_Farki": float,  # (dTref) Referans sıcaklık farkı (°C)
+    "Isı_Akışı": float,       # (Qref) Referans ısı akışı (J/s)
+    "Sıcaklık_Gradyanı": float, # (delTref) Referans sıcaklık gradyanı (°C/m)
+    "Basinc_Farki": float,    # (dPref) Referans basınç farkı (MPa)
+    "Gerilim": float,         # (sigmaref) Referans gerilimi (MPa)
+    "Notron_Akisi": float,    # (neutron_flux_ref) Referans nötron akışı (n/cm²s)
+    "Fizyon_Zincir_Reaksiyonu": float, # (keff_ref) Referans fizyon zincir reaksiyonu verimliliği
+    "Radyasyon_Dozu": float,   # (radiation_dose_ref) Referans radyasyon dozu (Sv/saat)
+    "Pref": float             # Referans radyasyon dozu
+  },
+  "Diferansiyel_Denklem_Parametreleri": {
+    "DT": float,    # Termal denklem parametresi
+    "alpha": float, # Termal denklem parametresi
+    "beta": float,  # Termal denklem parametresi
+    "nabla2TS": float, # Termal denklem parametresi
+    "gamma": float,  # Basınç denklem parametresi
+    "lambda_": float, # Basınç denklem parametresi
+    "delta": float,  # Basınç denklem parametresi
+    "epsilon": float, # Nötron denklem parametresi
+    "phi": float,    # Nötron denklem parametresi
+    "zeta": float,   # Nötron denklem parametresi
+    "eta": float,    # Radyasyon denklem parametresi
+    "theta": float    # Radyasyon denklem parametresi
+  },
+  "Agirliklandirma_Faktorleri": {
+    "TS": float,  # TS ağırlıklandırma faktörü
+    "BS": float,  # BS ağırlıklandırma faktörü
+    "NS": float,  # NS ağırlıklandırma faktörü
+    "RS": float   # RS ağırlıklandırma faktörü
+  }
+}
