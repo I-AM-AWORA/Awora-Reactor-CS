@@ -1,0 +1,23 @@
+{
+    "awora_flx_parametreleri": {
+      "DT": 0.01,
+      "alpha": 0.001,
+      "beta": 0.1,
+      "gamma": 0.05,
+      "lambda_": 0.2,
+      "delta": 0.02,
+      "epsilon": 1e-6,
+      "phi": 1e-5,
+      "zeta": 0.0005,
+      "eta": 0.01,
+      "theta": 0.005,
+      "w_TS": 0.25,
+      "w_BS": 0.25,
+      "w_NS": 0.25,
+      "w_RS": 0.25
+    },
+    "simulasyon_ayarlari": {
+      "zaman_araligi": [0, 5],
+      "zaman_adim_sayisi": 50
+    }
+  }

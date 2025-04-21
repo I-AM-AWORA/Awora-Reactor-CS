@@ -1,131 +1,80 @@
-"""
-formulas.py
+"""formulasa.py"""
+import numpy as np
+from scipy.integrate import solve_ivp
+from typing import Dict, Any
+import json
 
-Awora-FLX formülündeki skorları hesaplayan fonksiyonlar.
-"""
+def termal_skoru_degisimi(t, ts, ns, parametreler):
+    nabla2_ts = 0.0  # Basitleştirilmiş uzaysal terim
+    return parametreler["DT"] * nabla2_ts + parametreler["alpha"] * ts * ns - parametreler["beta"] * ns
 
-def calculate_ts(dT: float, Qnet: float, delT: float, dTref: float, Qref: float, delTref: float) -> float:
+def basinc_skoru_degisimi(t, bs, ts, dp, parametreler):
+    return parametreler["gamma"] * (dp + parametreler["lambda_"] * ts) - parametreler["delta"] * bs**2
+
+def notron_skoru_degisimi(t, ns, ts, parametreler):
+    return parametreler["epsilon"] + parametreler["phi"] - parametreler["zeta"] * ns * ts
+
+def radyasyon_skoru_degisimi(t, rs, r_dose, parametreler):
+    return parametreler["eta"] * r_dose - parametreler["theta"] * rs
+
+def risk_degerlendirme(ts, bs, ns, rs, parametreler):
+    f_ts = ts
+    g_bs = bs
+    h_ns = ns
+    k_rs = rs
+    return (parametreler["w_TS"] * f_ts + parametreler["w_BS"] * g_bs +
+            parametreler["w_NS"] * h_ns + parametreler["w_RS"] * k_rs)
+
+def hesapla_awora_flx(ham_veri: Dict[str, Any], parametreler: Dict[str, float], zaman_araligi: tuple = (0, 10), zaman_adim_sayisi: int = 100):
     """
-    Termal skoru hesaplar.
+    Ham veriyi alır ve Awora-FLX formüllerini kullanarak skorları ve risk değerini hesaplar.
 
     Args:
-        dT: Isı farkı.
-        Qnet: Isı akışı.
-        delT: Isı gradyanı.
-        dTref: Referans ısı farkı.
-        Qref: Referans ısı akışı.
-        delTref: Referans ısı gradyanı.
+        ham_veri (Dict[str, Any]): Core'dan gelen ham veri.
+        parametreler (Dict[str, float]): Diferansiyel denklem ve risk değerlendirme parametreleri.
+        zaman_araligi (tuple): Simülasyonun zaman aralığı (başlangıç, bitiş).
+        zaman_adim_sayisi (int): Simülasyon için kullanılacak zaman adımı sayısı.
 
     Returns:
-        Termal skor (TS).
+        Dict[str, np.ndarray]: Zaman serisi için hesaplanmış skorlar (TS, BS, NS, RS) ve risk değeri (G).
     """
-    ts = 0.0
-    if dTref != 0.0:
-        ts += dT / dTref
-    if Qref != 0.0:
-        ts += Qnet / Qref
-    if delTref != 0.0:
-        ts += delT / delTref
-    return ts  # [cite: 7, 8, 9, 10, 11]
+    t_span = zaman_araligi
+    t_eval = np.linspace(t_span[0], t_span[1], zaman_adim_sayisi)
 
+    initial_conditions = [
+        ham_veri.get("TS", 1.0),
+        ham_veri.get("BS", 1.0),
+        ham_veri.get("NS", 1.0),
+        ham_veri.get("RS", 1.0)
+    ]
 
-def calculate_bs(dP: float, sigma: float, dPref: float, sigmaref: float) -> float:
-    """
-    Basınç skorunu hesaplar.
+    def sistem(t, y):
+        ts, bs, ns, rs = y
+        dts_dt = termal_skoru_degisimi(t, ts, ham_veri.get("NS", 1.0), parametreler) # Anlık NS kullanımı
+        dbs_dt = basinc_skoru_degisimi(t, bs, ts, ham_veri.get("dP", 0.0), parametreler)
+        dns_dt = notron_skoru_degisimi(t, ns, ts, parametreler)
+        drs_dt = radyasyon_skoru_degisimi(t, rs, ham_veri.get("Radyasyon_Dozu", 0.0), parametreler)
+        return [dts_dt, dbs_dt, dns_dt, drs_dt]
 
-    Args:
-        dP: Basınç farkı.
-        sigma: Malzemenin gerilimi.
-        dPref: Referans basınç farkı.
-        sigmaref: Referans gerilimi.
+    sol = solve_ivp(sistem, t_span, initial_conditions, t_eval=t_eval, method='RK45')
 
-    Returns:
-        Basınç skoru (BS).
-    """
-    bs = 0.0
-    if dPref != 0.0:
-        bs += dP / dPref
-    if sigmaref != 0.0:
-        bs += sigma / sigmaref
-    return bs  # [cite: 11, 12, 13]
+    g_degerleri = risk_degerlendirme(sol.y[0], sol.y[1], sol.y[2], sol.y[3], parametreler)
 
+    return {
+        "zaman": sol.t.tolist(),
+        "TS": sol.y[0].tolist(),
+        "BS": sol.y[1].tolist(),
+        "NS": sol.y[2].tolist(),
+        "RS": sol.y[3].tolist(),
+        "G": g_degerleri.tolist()
+    }
 
-def calculate_ns(neutron_flux: float, keff: float, neutron_flux_ref: float, keff_ref: float) -> float:
-    """
-    Nötron skorunu hesaplar.
-
-    Args:
-        neutron_flux: Nötron akışı.
-        keff: Fizyon zincir reaksiyonu verimliliği.
-        neutron_flux_ref: Referans nötron akışı.
-        keff_ref: Referans fizyon zincir reaksiyonu verimliliği.
-
-    Returns:
-        Nötron skoru (NS).
-    """
-    ns = 0.0
-    if neutron_flux_ref != 0.0:
-        ns += neutron_flux / neutron_flux_ref
-    if keff_ref != 0.0:
-        ns += keff / keff_ref
-    return ns  # [cite: 13, 14]
-
-
-def calculate_rs(radiation_dose: float, radiation_dose_ref: float, Pradiation: float, Pref: float) -> float:
-    """
-    Radyasyon skorunu hesaplar.
-
-    Args:
-        radiation_dose: Radyasyon dozu.
-        radiation_dose_ref: Referans radyasyon dozu.
-         Pradiation: hesaplanmış radyasyon dozu
-         Pref: referans radyasyon dozu
-
-    Returns:
-        Radyasyon skoru (RS).
-    """
-    rs = 0.0
-    if radiation_dose_ref != 0.0:
-        rs += radiation_dose / radiation_dose_ref
-
-    if Pref != 0.0:
-        rs += Pradiation / Pref
-
-    return rs  # [cite: 15, 16, 17]
-
-
-def calculate_anh(G: float) -> float:
-    """
-    Ana skor hesaplaması (HM formülü).
-
-    Args:
-        G: Ağırlıklandırılmış skor.
-
-    Returns:
-        Ana skor (ANH).
-    """
-
-    return G  # Şu an sadece G'yi döndürüyor, HM formülü detayları belirsiz. [cite: 57, 58, 59, 60, 61, 62, 63]
-
-
-# Diferansiyel denklemler (şimdilik sadece tanımlar) [cite: 19, 20, 21, 22, 23, 24, 25]
-def dts_dt(ts: float, ns: float, DT: float, alpha: float, beta: float,nabla2TS: float) -> float:
-    """Termal diferansiyel denklemi."""
-    return DT*nabla2TS + alpha * ts * ns - beta * ns
-
-
-def dbs_dt(bs: float, ts: float, deltaP: float, gamma: float, lambda_: float, delta: float) -> float:
-    """Basınç diferansiyel denklemi."""
-
-    return gamma * (deltaP + lambda_ * ts) - delta * bs**2
-
-
-def dns_dt(ns: float, ts: float, epsilon: float, phi: float, zeta: float) -> float:
-    """Nötron diferansiyel denklemi."""
-    return epsilon + phi - zeta * ns * ts
-
-
-def drs_dt(rs: float, Rdose: float, eta: float, theta: float) -> float:
-    """Radyasyon diferansiyel denklemi."""
-
-    return eta * Rdose - theta * rs
+if __name__ == "__main__":
+    ornek_ham_veri = {"TS": 1.05, "BS": 1.1, "NS": 1.02, "RS": 0.95, "dP": 0.01, "Radyasyon_Dozu": 0.001}
+    ornek_parametreler = {
+        "DT": 0.01, "alpha": 0.001, "beta": 0.1, "gamma": 0.05, "lambda_": 0.2, "delta": 0.02,
+        "epsilon": 1e-6, "phi": 1e-5, "zeta": 0.0005, "eta": 0.01, "theta": 0.005,
+        "w_TS": 0.25, "w_BS": 0.25, "w_NS": 0.25, "w_RS": 0.25
+    }
+    sonuclar = hesapla_awora_flx(ornek_ham_veri, ornek_parametreler)
+    print(json.dumps(sonuclar, indent=4))
