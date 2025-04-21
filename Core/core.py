@@ -1,5 +1,6 @@
-# -- AWORA-FLX CORE ID: hakkari --
-# -- Açıklama: Gelişmiş bölgesel risk analizi odaklı çekirdek. --
+# -- AWORA-FLX CORE ID: 100
+# -- AWORA-FLX CORE Version: 1.0.0
+
 import json
 import logging
 from typing import Dict, Any

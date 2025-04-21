@@ -1,3 +1,6 @@
+# -- AWORA-FLX COMPONENT ID: CALCULATOR_MOD
+# -- AWORA-FLX COMPONENT Version: 1.0.0
+
 """calculator.py"""
 import json
 import logging

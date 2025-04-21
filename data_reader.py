@@ -1,3 +1,6 @@
+# -- AWORA-FLX COMPONENT ID: DATA_READER
+# -- AWORA-FLX COMPONENT Version: 1.0.0
+
 """
 data_reader.py
 

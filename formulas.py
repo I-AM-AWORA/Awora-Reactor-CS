@@ -1,3 +1,5 @@
+# -- AWORA-FLX COMPONENT ID: FORMULAS_LIB
+# -- AWORA-FLX COMPONENT Version: 1.0.0
 """formulasa.py"""
 import numpy as np
 from scipy.integrate import solve_ivp
