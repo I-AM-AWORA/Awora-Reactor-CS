@@ -22,7 +22,6 @@ Bu belge, Awora-FLX Projesi ("Yazılım")'nın ticari amaçlarla kullanımı iç
 
 Ticari kullanım lisansı almak veya ticari kullanımınızın lisans gerektirip gerektirmediğini öğrenmek için lütfen aşağıdaki iletişim bilgileri üzerinden Devran Durmaz ile iletişime geçin:
 
-[E-posta adresiniz]
-[Diğer iletişim bilgileriniz - isteğe bağlı]
+[devranaktas153@gmail.com]
 
 Bu koşullar, Awora-FLX Projesi'nin ticari kullanımını düzenlemek amacıyla oluşturulmuştur. Bireysel ve açık kaynak kullanımı MIT Lisansı altında serbesttir.
