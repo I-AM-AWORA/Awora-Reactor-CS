@@ -27,8 +27,7 @@ Bu belge, Awora-FLX Projesi ("Yazılım") ve özellikle Yazılımda kullanılan 
 
 Awora-FLX Projesi'nin ve temel Awora-FLX formüllerinin ticari kullanımı için lisans almak veya ticari kullanımınızın lisans gerektirip gerektirmediğini netleştirmek için lütfen aşağıdaki iletişim bilgileri üzerinden Devran Durmaz ile iletişime geçin:
 
-[E-posta adresiniz]
-[Diğer iletişim bilgileriniz - isteğe bağlı]
+[devranaktas153@gmail.com]
 
 Bu Özel Ticari Lisans Koşulları, Awora-FLX Projesi'nin ve temel formüllerinin ticari kullanımını düzenlemek amacıyla oluşturulmuştur. Bireysel ve açık kaynak kullanımı MIT Lisansı altında serbesttir. Lütfen ticari kullanımınız için bu koşulları dikkatlice inceleyin ve izin almak için zamanında iletişime geçin.
 
