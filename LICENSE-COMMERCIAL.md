@@ -2,26 +2,34 @@
 
 **Telif Hakkı (C) 2025 Devran Durmaz**
 
-Bu belge, Awora-FLX Projesi ("Yazılım")'nın ticari amaçlarla kullanımı için geçerli olan özel lisans koşullarını belirtmektedir. Ticari kullanım, aşağıdakileri (ancak bunlarla sınırlı olmamak üzere) içerir:
+Bu belge, Awora-FLX Projesi ("Yazılım") ve özellikle Yazılımda kullanılan temel Awora-FLX formüllerinin ticari amaçlarla kullanımı için geçerli olan özel lisans koşullarını belirtmektedir. Ticari kullanım, aşağıdakileri (ancak bunlarla sınırlı olmamak üzere) içerir:
 
-* Yazılımın ticari bir ürün veya hizmetin parçası olarak bütünleştirilmesi.
-* Yazılımın doğrudan veya dolaylı olarak satılması, kiralanması veya başka bir şekilde gelir elde edilecek şekilde dağıtılması.
-* Yazılımın ticari faaliyetlerin yürütülmesinde kullanılması.
+* Yazılımın veya temel Awora-FLX formüllerinin ticari bir ürün veya hizmetin parçası olarak bütünleştirilmesi.
+* Yazılımın veya temel Awora-FLX formüllerinin doğrudan veya dolaylı olarak satılması, kiralanması veya başka bir şekilde gelir elde edilecek şekilde dağıtılması.
+* Temel Awora-FLX formüllerinin ticari faaliyetlerin yürütülmesinde kullanılması (analiz, modelleme, tahmin vb.).
+* Temel Awora-FLX formüllerinin analiz edilmesi, türetilmesi veya patent başvurusuna konu edilmesi.
 
 **Ticari Lisans Koşulları:**
 
-1.  **Lisans Anlaşması:** Yazılımın ticari kullanımı için geliştirici (Devran Durmaz) ile ayrı bir yazılı lisans anlaşması yapılması zorunludur. Bu anlaşma, kullanım kapsamını, ücretlendirme modelini ve diğer ilgili koşulları detaylı olarak belirleyecektir.
+1.  **Lisans Anlaşması:** Yazılımın veya temel Awora-FLX formüllerinin herhangi bir ticari amaçla kullanımı için geliştirici (Devran Durmaz) ile ayrı bir yazılı ve münhasır ticari lisans anlaşması yapılması zorunludur. Bu anlaşma, kullanımın kapsamını, süresini, coğrafi sınırlarını, ücretlendirme modelini (lisans ücretleri, gelir paylaşımı vb.) ve diğer ilgili ticari koşulları detaylı olarak belirleyecektir.
 
-2.  **İzin Gerekliliği:** Yukarıda belirtilen ticari kullanım türlerinden herhangi biri için önceden Devran Durmaz'dan yazılı izin alınması gerekmektedir. İzinsiz ticari kullanım kesinlikle yasaktır.
+2.  **İzin Gerekliliği:** Yukarıda belirtilen ticari kullanım türlerinden herhangi biri için önceden Devran Durmaz'dan yazılı ve açık izin alınması gerekmektedir. İzinsiz ticari kullanım fikri mülkiyet haklarının ihlali anlamına gelir ve yasal işlem başlatma hakkını saklı tutar.
 
-3.  **Atıf:** Ticari ürünlerde veya hizmetlerde Yazılım kullanıldığında, uygun bir şekilde Devran Durmaz'a atıfta bulunulması talep edilebilir. Atıfın şekli ve konumu, lisans anlaşmasında belirtilecektir.
+3.  **Fikri Mülkiyet Hakları:** Temel Awora-FLX formülleri ve bu formüllerin altında yatan kavramsal çerçeve ve ilişkiler münhasıran Devran Durmaz'ın fikri mülkiyetindedir. Bu ticari lisans, Yazılımın ticari kullanım hakkını vermekte olup, formüller üzerindeki fikri mülkiyet haklarını devretmez. Türetilmiş ticari çalışmalar üzerindeki fikri mülkiyet hakları, yapılacak özel lisans anlaşması ile ayrıca düzenlenecektir.
 
-4.  **Türev Çalışmalar:** Ticari amaçlarla türetilmiş çalışmalar oluşturulması durumunda da ayrı bir lisans anlaşması yapılması gerekmektedir. Türev çalışmalar üzerindeki fikri mülkiyet hakları ve lisanslama koşulları bu anlaşmada düzenlenecektir.
+4.  **Atıf:** Ticari ürünlerde veya hizmetlerde Yazılım veya temel Awora-FLX formülleri kullanıldığında, Devran Durmaz'a uygun bir şekilde atıfta bulunulması zorunludur. Atıfın şekli ve konumu, ticari lisans anlaşmasında detaylı olarak belirtilecektir. Bu atıf, ürün belgelerinde, web sitesinde ve ilgili pazarlama materyallerinde yer almalıdır.
+
+5.  **Sorumluluk Sınırlandırılması:** Ticari kullanım kapsamında Yazılım veya temel Awora-FLX formüllerinden kaynaklanabilecek her türlü doğrudan veya dolaylı zarardan Devran Durmaz sorumlu tutulamaz. Ticari lisans alan, kullanımın risklerini üstlenir.
+
+6.  **Uygulanacak Hukuk ve Yetkili Mahkeme:** İşbu Ticari Lisans Koşulları'nın yorumlanması ve uygulanmasından doğabilecek her türlü ihtilafta Türkiye Cumhuriyeti Hukuku uygulanacak ve Adana Mahkemeleri ve İcra Daireleri yetkili olacaktır.
 
 **İletişim:**
 
-Ticari kullanım lisansı almak veya ticari kullanımınızın lisans gerektirip gerektirmediğini öğrenmek için lütfen aşağıdaki iletişim bilgileri üzerinden Devran Durmaz ile iletişime geçin:
+Awora-FLX Projesi'nin ve temel Awora-FLX formüllerinin ticari kullanımı için lisans almak veya ticari kullanımınızın lisans gerektirip gerektirmediğini netleştirmek için lütfen aşağıdaki iletişim bilgileri üzerinden Devran Durmaz ile iletişime geçin:
 
-[devranaktas153@gmail.com]
+[E-posta adresiniz]
+[Diğer iletişim bilgileriniz - isteğe bağlı]
 
-Bu koşullar, Awora-FLX Projesi'nin ticari kullanımını düzenlemek amacıyla oluşturulmuştur. Bireysel ve açık kaynak kullanımı MIT Lisansı altında serbesttir.
+Bu Özel Ticari Lisans Koşulları, Awora-FLX Projesi'nin ve temel formüllerinin ticari kullanımını düzenlemek amacıyla oluşturulmuştur. Bireysel ve açık kaynak kullanımı MIT Lisansı altında serbesttir. Lütfen ticari kullanımınız için bu koşulları dikkatlice inceleyin ve izin almak için zamanında iletişime geçin.
+
+**Önemli Not:** Bu ticari lisans metni hukuki tavsiye yerine geçmez. Ticari haklarınızın korunması ve lisansın hukuki geçerliliği için bir hukuk uzmanına danışmanız önemlidir.
