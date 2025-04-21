@@ -9,7 +9,7 @@ Bu proje, nükleer reaktörlerin güvenlik analizini gerçekleştirmek amacıyla
 
 Bu proje çift lisans altında yayınlanmaktadır:
 
-* **Bireysel ve Açık Kaynak Kullanımı:** Kaynak kodu, [MIT Lisansı](LICENSE.md) altında serbestçe kullanılabilir. Bu, ticari olmayan amaçlarla kullanım, inceleme, değiştirme ve dağıtmayı içerir.
+* **Bireysel ve Açık Kaynak Kullanımı:** Kaynak kodu, [MIT Lisansı](#mit-lisansı) altında serbestçe kullanılabilir. Bu, ticari olmayan amaçlarla kullanım, inceleme, değiştirme ve dağıtmayı içerir.
 * **Ticari Kullanım:** Yazılımın ve temel Awora-FLX formüllerinin ticari kullanımı özel koşullara tabidir. Daha fazla bilgi için lütfen bu belgenin altındaki "Ticari Kullanım" bölümünü inceleyin veya geliştiriciyle (Devran Durmaz) iletişime geçin.
 
 ## İçindekiler
@@ -87,3 +87,16 @@ Proje, temel olarak üç ana katmandan oluşmaktadır:
 Bu proje çift lisanslıdır: MIT Lisansı (açık kaynak ve bireysel kullanım için) ve Özel Ticari Lisans (ticari kullanım için).
 
 ### MIT Lisansı
+### Ticari Kullanım
+
+Awora-FLX Projesi'nin ve temel Awora-FLX formüllerinin ticari amaçlarla kullanımı özel koşullara tabidir. Ticari kullanım, Yazılımın veya temel formüllerin ticari ürünlerde veya hizmetlerde bütünleştirilmesini, doğrudan veya dolaylı olarak satışını, ticari faaliyetlerde kullanılmasını ve formüllerin analiz edilmesini veya patent başvurusuna konu edilmesini içerir.
+
+Temel Awora-FLX formüllerinin fikri mülkiyeti Devran Durmaz'a aittir. Ticari kullanım için önceden yazılı izin alınması ve özel bir lisans anlaşması yapılması gerekmektedir.
+
+Ticari lisans almak veya ticari kullanımınızın lisans gerektirip gerektirmediğini öğrenmek için lütfen Devran Durmaz ile iletişime geçin:
+
+[devranaktas153@gmail.com]
+
+### Yapay Zeka Asistanının Rolü
+
+Bu projenin geliştirilmesi sürecinde, yapay zeka tabanlı programlar Devran Durmaz'a önemli ölçüde yardımcı olmuştur. Bu programlar, Awora-FLX formüllerinin oluşturulması, matematiksel modellemenin yapılması ve kodun geliştirilmesi gibi çeşitli aşamalarda Devran Durmaz'a destek sağlamıştır. Ancak, projenin temel fikirleri, konsepti ve nihai tasarımı Devran Durmaz'a aittir. Yapay zeka asistanları bir araç olarak kullanılmış olup, projenin yaratıcısı ve sahibi Devran Durmaz'dır.
