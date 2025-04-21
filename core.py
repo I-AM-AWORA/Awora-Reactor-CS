@@ -25,6 +25,13 @@ from formulas import (
 from calculator import Calculator  # Calculator'ı içe aktar
 
 
+class CalculationError(Exception):
+    """Hesaplama sırasında oluşan hatalar için özel istisna sınıfı."""
+
+    def __init__(self, message: str):
+        super().__init__(message)
+
+
 def read_input_data(file_path: str) -> Dict[str, Any]:
     """Girdi verilerini okur ve doğrular."""
     try:
@@ -63,7 +70,7 @@ def calculate_scores_fast(
     olculen_radyasyon_dozu,
     referans_radyasyon_dozu,
     olculen_Pradiation,
-    referans_Pref
+    referans_Pref,
 ):
     """Skorları hesaplar (Numba ile hızlandırılmış)."""
 
@@ -85,9 +92,7 @@ def calculate_scores_fast(
     if referans_notron_akisi != 0.0:
         ns += olculen_notron_akisi / referans_notron_akisi
     if referans_fizyon_zincir_reaksiyonu != 0.0:
-        ns += (
-            olculen_fizyon_zincir_reaksiyonu / referans_fizyon_zincir_reaksiyonu
-        )
+        ns += olculen_fizyon_zincir_reaksiyonu / referans_fizyon_zincir_reaksiyonu
 
     rs = 0.0
     if referans_radyasyon_dozu != 0.0:
@@ -128,7 +133,7 @@ def calculate_scores(data: Dict[str, Any]) -> Dict[str, float]:
             olculen.get("Radyasyon_Dozu", 0.0),
             referans.get("Radyasyon_Dozu", 0.0),
             olculen.get("Pradiation", 0.0),
-            referans.get("Pref", 0.0)
+            referans.get("Pref", 0.0),
         )
 
         return {"TS": ts, "BS": bs, "NS": ns, "RS": rs}
@@ -158,12 +163,25 @@ def calculate_differential_equations(
         theta = diff_params.get("theta", 0.0)
         Rdose_param = diff_params.get("Rdose", 0.0)
 
-        dts_dt_value = dts_dt(scores["TS"], scores["NS"], DT=dt, alpha=alpha, beta=beta, nabla2TS=nabla2TS)
-        dbs_dt_value = dbs_dt(scores["BS"], scores["TS"], deltaP=dt, gamma=gamma, lambda_=lambda_, delta=delta)
-        dns_dt_value = dns_dt(scores["NS"], scores["TS"], epsilon=epsilon, phi=phi, zeta=zeta)
-        drs_dt_value = drs_dt(scores["RS"], Rdose=Rdose_param, eta=eta, theta=theta)
+        dts_dt_value = dts_dt(
+            scores["TS"], scores["NS"], DT=dt, alpha=alpha, beta=beta, nabla2TS=nabla2TS
+        )
+        dbs_dt_value = dbs_dt(
+            scores["BS"], scores["TS"], deltaP=dt, gamma=gamma, lambda_=lambda_, delta=delta
+        )
+        dns_dt_value = dns_dt(
+            scores["NS"], scores["TS"], epsilon=epsilon, phi=phi, zeta=zeta
+        )
+        drs_dt_value = drs_dt(
+            scores["RS"], Rdose=Rdose_param, eta=eta, theta=theta
+        )
 
-        return {"dTSdt": dts_dt_value, "dBSdt": dbs_dt_value, "dNSdt": dns_dt_value, "dRSdt": drs_dt_value}
+        return {
+            "dTSdt": dts_dt_value,
+            "dBSdt": dbs_dt_value,
+            "dNSdt": dns_dt_value,
+            "dRSdt": drs_dt_value,
+        }
     except Exception as e:
         logging.error(f"Diferansiyel denklem hatası: {e}")
         raise CalculationError(
@@ -203,7 +221,11 @@ def main(input_file_path: str):
         print("Calculator'dan gelen düzenlenmiş sonuçlar:", duzenlenmis_sonuclar)
         calculator.write_output("output.json")
 
-    except (FileNotFoundError, json.JSONDecodeError, CalculationError) as e:
+    except (
+        FileNotFoundError,
+        json.JSONDecodeError,
+        CalculationError,  # Buraya eklendi
+    ) as e:
         print(f"Hata: {e}")
     except Exception as e:
         print(f"Beklenmeyen hata: {e}")
