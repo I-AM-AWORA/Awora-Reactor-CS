@@ -1,4 +1,5 @@
-"""core.py"""
+# -- AWORA-FLX CORE ID: hakkari --
+# -- Açıklama: Gelişmiş bölgesel risk analizi odaklı çekirdek. --
 import json
 import logging
 from typing import Dict, Any
