@@ -67,4 +67,28 @@ Proje, temel olarak üç ana katmandan oluşmaktadır:
     }
     ```
     Gelecekte zaman serisi verileri için destek eklenecektir.
-3.  **Çalıştırma:** Projeyi çalıştırmak için `
+3.  **Çalıştırma:** Projeyi çalıştırmak için `core.py` dosyasını çalıştırın:
+    ```bash
+    python core.py
+    ```
+4.  **Çıktı:** Analiz sonuçları `output.json` dosyasına yazılacaktır.
+
+## 6. Çıktı Analizi
+
+`output.json` dosyası, simülasyonun zaman serisi boyunca hesaplanan skorları (TS, BS, NS, RS) ve genel risk değerini (G) içerir.
+
+```json
+{
+  "ham_veri_konumu": "input.json",
+  "zaman_serisi": [
+    {
+      "zaman": "0.00",
+      "TS": "1.0500",
+      "BS": "1.1000",
+      "NS": "1.0200",
+      "RS": "0.9500",
+      "G": "1.0100"
+    },
+    // ... diğer zaman noktaları
+  ]
+}
