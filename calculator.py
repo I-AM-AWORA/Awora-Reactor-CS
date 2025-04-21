@@ -1,203 +1,193 @@
 """
-calculator.py
+calculator.py (Gelişmiş)
 
-Awora-FLX hesaplamalarını yapan ve sonuçları düzenleyen sınıf.
+core.py'den gelen ham veriyi işleyerek nihai çıktıları düzenler.
 """
 
 from typing import Dict, Any, List
-from formulas import (
-    calculate_ts,
-    calculate_bs,
-    calculate_ns,
-    calculate_rs,
-    calculate_anh,
-    dts_dt,
-    dbs_dt,
-    dns_dt,
-    drs_dt,
-)  # Formülleri içe aktar
-
+import json
+import logging
 
 class Calculator:
-    def __init__(self, data: Dict[str, Any], data_source_path: str):
+    def __init__(self, ham_veri: Dict[str, Any], ham_veri_konumu: str):
         """
-        Calculator sınıfının başlatıcı metodu.
+        Calculator sınıfının yapıcı metodu.
 
         Args:
-            data: Girdi verilerini içeren sözlük.
-            data_source_path: Veri dosyasının konumu.
+            ham_veri (Dict[str, Any]): core.py'den gelen ham veri.
+            ham_veri_konumu (str): Ham veri dosyasının konumu.
         """
-        self.data_source_path = data_source_path
-        self.data = data
-        self.results: Dict[str, Any] = {}  # Hesaplama sonuçları
-        self.steps: List[str] = []  # Hesaplama adımları
-        self.integrated_data: Dict[str, Any] = {}  # İntegral verileri
-        self.categorized_results: Dict[str, str] = {}  # Kategorize edilmiş sonuçlar
-        self.value_types: Dict[str, str] = {}  # Değer tipleri
+        self.ham_veri = ham_veri
+        self.ham_veri_konumu = ham_veri_konumu
+        self.zaman_noktalari = self._veriyi_zamana_gore_ayristir()
 
-    def _determine_value_type(self, value: Any) -> str:
+    def _veriyi_zamana_gore_ayristir(self) -> Dict[str, Dict[str, Any]]:
         """
-        Değerin tipini belirler.
-
-        Args:
-            value: Tipini belirlenecek değer.
+        Ham veriyi zamana göre ayrıştırır ve I, M, AS türlerini belirler.
 
         Returns:
-            Değerin tipi ("float", "string", "list" veya "unknown").
+            Dict[str, Dict[str, Any]]: Zamana göre ayrıştırılmış veri.
         """
-        if isinstance(value, (int, float)):
-            return "float"
-        elif isinstance(value, str):
-            return "string"
-        elif isinstance(value, list):
-            return "list"
-        else:
-            return "unknown"
 
-    def calculate_all(self):
+        zaman_noktalari = {}
+        # Bu kısım, ham verinin yapısına göre uyarlanmalıdır.
+        # Şu an için örnek olarak, ham verinin bir zaman serisi
+        # olduğunu ve her zaman noktası için skorları içerdiğini varsayıyoruz.
+        # Gerçek uygulamada, verinin kaynağına ve formatına göre
+        # bu kısmı düzenlemeniz gerekebilir.
+
+        # Örnek: Eğer ham veri bir zaman serisi ise,
+        # her zaman noktası için skorları ayıklayabiliriz.
+        # Şimdilik, örnek bir veri yapısı oluşturalım:
+        zaman_noktalari = {
+            "d0": {  # Başlangıç zamanı
+                "TS": {"deger": self.ham_veri.get("TS", 0.0)},
+                "BS": {"deger": self.ham_veri.get("BS", 0.0)},
+                "NS": {"deger": self.ham_veri.get("NS", 0.0)},
+                "RS": {"deger": self.ham_veri.get("RS", 0.0)},
+                "G": {"deger": self.ham_veri.get("G", 0.0)},
+            },
+            "d2": {  # 2 birim sonra
+                "TS": {"deger": self.ham_veri.get("TS", 0.0) + 0.2},
+                "BS": {"deger": self.ham_veri.get("BS", 0.0) + 0.1},
+                "NS": {"deger": self.ham_veri.get("NS", 0.0) + 0.3},
+                "RS": {"deger": self.ham_veri.get("RS", 0.0) + 0.05},
+                "G": {"deger": self.ham_veri.get("G", 0.0) + 0.15},
+            },
+            "d4": {  # 2 birim sonra (d2'den 2 birim sonra)
+                "TS": {"deger": self.ham_veri.get("TS", 0.0) + 0.5},
+                "BS": {"deger": self.ham_veri.get("BS", 0.0) + 0.3},
+                "NS": {"deger": self.ham_veri.get("NS", 0.0) + 0.8},
+                "RS": {"deger": self.ham_veri.get("RS", 0.0) + 0.2},
+                "G": {"deger": self.ham_veri.get("G", 0.0) + 0.6},
+            },
+        }
+        return zaman_noktalari
+
+    def _anh(self, deger: float, zaman: str) -> float:
+        """
+        Ardışık Nokta Hesaplaması (ANH) uygular.
+
+        Args:
+            deger (float): İşlenecek değer.
+            zaman (str): Değerin ait olduğu zaman (örn. "d2" veya "d0-d2").
+
+        Returns:
+            float: ANH uygulanmış değer.
+        """
+        # Örnek ANH formülü (Gerçek formülünüzü buraya girin)
+        if "-" in zaman:  # Zaman aralığı ise
+            zaman_baslangici, zaman_bitisi = zaman.split("-")
+            zaman_degeri = int(zaman_bitisi[1:]) - int(zaman_baslangici[1:])  # Aralık uzunluğunu al
+        else:  # Tekil zaman noktası ise
+            zaman_degeri = int(zaman[1:])  # "d2" -> 2
+        return deger * 1.1 + zaman_degeri * 0.05
+
+    def _hm(self, deger: float, zaman_araligi: str) -> float:
+        """
+        Home Metodu (HM) uygular.
+
+        Args:
+            deger (float): İşlenecek değer.
+            zaman_araligi (str): Değerin ait olduğu zaman aralığı (örn. "d0-d2").
+
+        Returns:
+            float: HM uygulanmış değer.
+        """
+        # Örnek HM formülü (Gerçek formülünüzü buraya girin)
+        zaman_baslangici_str, zaman_bitisi_str = zaman_araligi.split("-")  # "d0-d2" -> "d0", "d2"
+        zaman_baslangici = int(zaman_baslangici_str[1:])  # "d0" -> 0
+        zaman_bitisi = int(zaman_bitisi_str[1:])  # "d2" -> 2
+        return deger * 0.9 + (zaman_bitisi - zaman_baslangici) * 0.1
+
+    def calculate_all(self) -> Dict[str, Any]:
         """
         Tüm hesaplamaları yapar ve sonuçları düzenler.
-        """
-        olculen = self.data.get("Olculen_Degerler", {})
-        referans = self.data.get("Referans_Degerleri", {})
-
-        # Skorları hesapla
-        ts = calculate_ts(
-            olculen.get("Sicaklik_Farki", 0.0),
-            olculen.get("Isı_Akışı", 0.0),
-            olculen.get("Sıcaklık_Gradyanı", 0.0),
-            referans.get("Sıcaklik_Farkı", 0.0),
-            referans.get("Isı_Akışı", 0.0),
-            referans.get("Sıcaklık_Gradyanı", 0.0),
-        )
-        self.results["TS"] = ts
-        self.steps.append(f"TS Hesaplandı: {ts}")
-        self.value_types["TS"] = self._determine_value_type(ts)
-
-        bs = calculate_bs(
-            olculen.get("Basinc_Farki", 0.0),
-            olculen.get("Gerilim", 0.0),
-            referans.get("Basinc_Farki", 0.0),
-            referans.get("Gerilim", 0.0),
-        )
-        self.results["BS"] = bs
-        self.steps.append(f"BS Hesaplandı: {bs}")
-        self.value_types["BS"] = self._determine_value_type(bs)
-
-        ns = calculate_ns(
-            olculen.get("Notron_Akisi", 0.0),
-            olculen.get("Fizyon_Zincir_Reaksiyonu", 0.0),
-            referans.get("Notron_Akisi", 0.0),
-            referans.get("Fizyon_Zincir_Reaksiyonu", 0.0),
-        )
-        self.results["NS"] = ns
-        self.steps.append(f"NS Hesaplandı: {ns}")
-        self.value_types["NS"] = self._determine_value_type(ns)
-
-        rs = calculate_rs(
-            olculen.get("Radyasyon_Dozu", 0.0),
-            referans.get("Radyasyon_Dozu", 0.0),
-            olculen.get("Pradiation", 0.0),
-            referans.get("Pref", 0.0)
-        )
-        self.results["RS"] = rs
-        self.steps.append(f"RS Hesaplandı: {rs}")
-        self.value_types["RS"] = self._determine_value_type(rs)
-
-        # Ana skor (G) hesaplaması (ağırlıklar varsayılan olarak verildi)
-        g_prime = (
-            0.4 * self.results.get("TS", 0.0)
-            + 0.2 * self.results.get("NS", 0.0)
-            + 0.2 * self.results.get("BS", 0.0)
-            + 0.2 * self.results.get("RS", 0.0)
-        )
-        self.results["G"] = g_prime
-        self.steps.append(f"G Hesaplandı: {g_prime}")
-        self.value_types["G"] = self._determine_value_type(g_prime)
-
-        # Diferansiyel denklemler (örnek olarak ilk değerlerle hesaplama)
-        # NOT: Diferansiyel denklemlerin nasıl kullanılacağı belirsiz, bu yüzden basit bir örnek yapıldı
-        dt = 1  # Zaman adımı (örnek)
-        nabla2TS = 1 # örnek değer
-        alpha = 1 # örnek değer
-        beta = 1 # örnek değer
-        gamma = 1 # örnek değer
-        lambda_ = 1 # örnek değer
-        delta = 1 # örnek değer
-        epsilon = 1 # örnek değer
-        phi = 1 # örnek değer
-        zeta = 1 # örnek değer
-        eta = 1 # örnek değer
-        theta = 1 # örnek değer
-        Rdose = 1 # örnek değer
-
-        self.results["dTSdt"] = dts_dt(self.results.get("TS", 0.0), self.results.get("NS", 0.0), DT=dt, alpha=alpha, beta=beta, nabla2TS=nabla2TS)
-        self.results["dBSdt"] = dbs_dt(self.results.get("BS", 0.0), self.results.get("TS", 0.0), deltaP=dt, gamma=gamma, lambda_=lambda_, delta=delta)
-        self.results["dNSdt"] = dns_dt(self.results.get("NS", 0.0), self.results.get("TS", 0.0), epsilon=epsilon, phi=phi, zeta=zeta)
-        self.results["dRSdt"] = drs_dt(self.results.get("RS", 0.0), Rdose=Rdose, eta=eta, theta=theta)
-
-        self.steps.append("Diferansiyel denklemler hesaplandı (örnek değerlerle)")
-        self.value_types["dTSdt"] = self._determine_value_type(self.results["dTSdt"])
-        self.value_types["dBSdt"] = self._determine_value_type(self.results["dBSdt"])
-        self.value_types["dNSdt"] = self._determine_value_type(self.results["dNSdt"])
-        self.value_types["dRSdt"] = self._determine_value_type(self.results["dRSdt"])
-
-        self._categorize_results()
-        self._integrate_data()
-
-    def _categorize_results(self):
-        """
-        Hesaplama sonuçlarını kategorilere ayırır (AS, I, M).
-        """
-        for key, value in self.results.items():
-            if key == "G":  # Sadece G için kategorizasyon
-                if value > 1.0:
-                    self.categorized_results[key] = "AS"
-                elif 0.5 < value <= 1.0:
-                    self.categorized_results[key] = "I"
-                else:
-                    self.categorized_results[key] = "M"
-                self.value_types[key] = self._determine_value_type(
-                    self.categorized_results[key]
-                )
-
-    def _integrate_data(self):
-        """
-        İntegral hesaplamalarını yapar (örnek olarak ortalama).
-        """
-        if self.results:
-            self.integrated_data["ortalama_skor"] = sum(self.results.values()) / len(
-                self.results
-            )
-            self.value_types["ortalama_skor"] = self._determine_value_type(
-                self.integrated_data["ortalama_skor"]
-            )
-
-    def get_results(self) -> Dict[str, Any]:
-        """
-        Hesaplama sonuçlarını, adımları, kategorize edilmiş sonuçları ve
-        integral verilerini döndürür.
 
         Returns:
-            Bir sözlük içinde hesaplama sonuçları.
+            Dict[str, Any]: Düzenlenmiş sonuçlar.
         """
-        return {
-            "ham_veri_konumu": self.data_source_path,
-            "hesaplamalar": self.steps,
-            "sonuclar": self.results,
-            "cikan_deger_tipleri": self.value_types,
-            "kategorize_edilmis_sonuclar": self.categorized_results,
-            "integral_ve_turetilmis_veriler": self.integrated_data,
+
+        cikti = {
+            "ham_veri_konumu": self.ham_veri_konumu,
+            "I_degerleri": {
+                "TS": [],
+                "BS": [],
+                "NS": [],
+                "RS": [],
+                "G": []
+            },
+            "M_degerleri": {
+                "TS": [],
+                "BS": [],
+                "NS": [],
+                "RS": [],
+                "G": []
+            },
+            "AS_degerleri": {
+                "TS": [],
+                "BS": [],
+                "NS": [],
+                "RS": [],
+                "G": []
+            }
         }
 
-    def write_output(self, file_path: str):
+        zamanlar = sorted([int(z[1:]) for z in self.zaman_noktalari.keys()])  # Zamanları sırala (d2 -> 2)
+        for i, zaman in enumerate(zamanlar):
+            zaman_str = f"d{zaman}"
+            skorlar = self.zaman_noktalari[zaman_str]
+
+            for skor_adi, skor_degeri in skorlar.items():
+                deger = skor_degeri["deger"]
+
+                # I değerleri (ANH'den nokta zamanlı geçirilmiş)
+                i_degeri = self._anh(deger, zaman_str)
+                cikti["I_degerleri"][skor_adi].append({"zaman": zaman_str, "zaman": zaman_str, "deger": i_degeri})
+
+                # M değerleri (ANH'den aralık zamanlı geçirilmiş)
+                if i > 0:
+                    onceki_zaman_indeksi = i - 1
+                    onceki_zaman = f"d{zamanlar[onceki_zaman_indeksi]}"
+                    zaman_araligi = f"{onceki_zaman}-{zaman_str}"
+                    m_degeri = self._anh(deger, zaman_araligi)  # ANH'ye zaman aralığı gönderiliyor
+                    cikti["M_degerleri"][skor_adi].append({"zaman_araligi": zaman_araligi, "deger": zaman_araligi, "deger": m_degeri})
+
+                    # AS değerleri (ANH ve HM'den geçirilmiş)
+                    as_degeri = self._hm(m_degeri, zaman_araligi)  # HM'ye M değeri gönderiliyor
+                    cikti["AS_degerleri"][skor_adi].append({"zaman_araligi": zaman_araligi, "deger": zaman_araligi, "deger": as_degeri})
+                else:
+                    # Başlangıç zamanı için M ve AS değerleri yok
+                    cikti["M_degerleri"][skor_adi].append({"zaman_araligi": "Yok", "deger": 0.0})
+                    cikti["AS_degerleri"][skor_adi].append({"zaman_araligi": "Yok", "deger": 0.0})
+
+        return cikti
+
+    def write_output(self, output_file_path: str):
         """
-        Hesaplama sonuçlarını bir dosyaya yazar (JSON formatında).
+        Çıktı verisini JSON dosyasına yazar.
 
         Args:
-            file_path: Çıktı dosyasının yolu.
+            output_file_path (str): Çıktı dosyasının konumu.
         """
-        import json
+        try:
+            with open(output_file_path, "w") as f:
+                json.dump(self.calculate_all(), f, indent=4)
+            logging.info(f"Çıktı dosyası başarıyla oluşturuldu: {output_file_path}")
+        except Exception as e:
+            logging.error(f"Çıktı dosyası oluşturulurken hata oluştu: {e}")
 
-        with open(file_path, "w") as f:
-            json.dump(self.get_results(), f, indent=4)
+if __name__ == "__main__":
+    # Örnek ham veri (core.py'den geldiğini varsayalım)
+    ham_veri = {
+        "TS": 0.1,
+        "BS": 0.2,
+        "NS": 0.3,
+        "RS": 0.05,
+        "G": 0.2
+    }
+    input_file_path = "input.json"  # Örnek dosya adı
+    calculator = Calculator(ham_veri, input_file_path)
+    cikti = calculator.calculate_all()
+    print(json.dumps(cikti, indent=4))  # Konsola yazdır
+    calculator.write_output("output.json")  # Dosyaya yazdır
