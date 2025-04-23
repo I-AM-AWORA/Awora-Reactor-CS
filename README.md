@@ -5,6 +5,11 @@
 
 Bu proje, nükleer reaktörlerin güvenlik analizini gerçekleştirmek amacıyla geliştirilmiş bir araçtır. Awora-FLX formülünü temel alarak, reaktördeki çeşitli fiziksel parametreleri (Termal Skor (TS), Basınç Skoru (BS), Nötron Skoru (NS), Radyasyon Skoru (RS)) analiz eder ve potansiyel risk seviyesini (G) değerlendirir. Projenin geliştirilmesinde yapay zeka programları önemli bir asistan rolü oynamış, formüllerin oluşturulması ve kodun geliştirilmesi süreçlerinde Devran Durmaz'a yardımcı olmuştur.
 
+### Yapay Zeka Asistanının Rolü
+
+Bu projenin geliştirilmesi sürecinde, yapay zeka tabanlı programlar Devran Durmaz'a önemli ölçüde yardımcı olmuştur. Bu programlar, Awora-FLX formüllerinin oluşturulması, matematiksel modellemenin yapılması ve kodun geliştirilmesi gibi çeşitli aşamalarda Devran Durmaz'a destek sağlamıştır. Ancak, projenin temel fikirleri, konsepti ve nihai tasarımı Devran Durmaz'a aittir. Yapay zeka asistanları bir araç olarak kullanılmış olup, projenin yaratıcısı ve sahibi Devran Durmaz'dır.
+
+
 ## Lisans
 
 Bu proje çift lisans altında yayınlanmaktadır:
@@ -96,7 +101,3 @@ Temel Awora-FLX formüllerinin fikri mülkiyeti Devran Durmaz'a aittir. Ticari k
 Ticari lisans almak veya ticari kullanımınızın lisans gerektirip gerektirmediğini öğrenmek için lütfen Devran Durmaz ile iletişime geçin:
 
 [devranaktas153@gmail.com]
-
-### Yapay Zeka Asistanının Rolü
-
-Bu projenin geliştirilmesi sürecinde, yapay zeka tabanlı programlar Devran Durmaz'a önemli ölçüde yardımcı olmuştur. Bu programlar, Awora-FLX formüllerinin oluşturulması, matematiksel modellemenin yapılması ve kodun geliştirilmesi gibi çeşitli aşamalarda Devran Durmaz'a destek sağlamıştır. Ancak, projenin temel fikirleri, konsepti ve nihai tasarımı Devran Durmaz'a aittir. Yapay zeka asistanları bir araç olarak kullanılmış olup, projenin yaratıcısı ve sahibi Devran Durmaz'dır.
