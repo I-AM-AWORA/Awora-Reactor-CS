@@ -9,7 +9,6 @@ Bu proje, nükleer reaktörlerin güvenlik analizini gerçekleştirmek amacıyla
 
 Bu projenin geliştirilmesi sürecinde, yapay zeka tabanlı programlar Devran Durmaz'a önemli ölçüde yardımcı olmuştur. Bu programlar, Awora-FLX formüllerinin oluşturulması, matematiksel modellemenin yapılması ve kodun geliştirilmesi gibi çeşitli aşamalarda Devran Durmaz'a destek sağlamıştır. Ancak, projenin temel fikirleri, konsepti ve nihai tasarımı Devran Durmaz'a aittir. Yapay zeka asistanları bir araç olarak kullanılmış olup, projenin yaratıcısı ve sahibi Devran Durmaz'dır.
 
-
 ## Lisans
 
 Bu proje çift lisans altında yayınlanmaktadır:
