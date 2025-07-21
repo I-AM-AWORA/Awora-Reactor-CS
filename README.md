@@ -65,18 +65,3 @@ Her türlü soru, öneri veya ticari işbirliği için:
 - E-posta: devranaktas153@gmail.com
 
 ---
-
-## Sıkça Sorulan Sorular
-
-### Awora-FLX modeli hangi bilimsel temellere dayanıyor?
-> (Burada modelin dayandığı fiziksel/teorik altyapı, literatür veya referans varsa ekleyebilirim. Detay verir misin?)
-
-### Risk skoru (G) nasıl hesaplanıyor?
-> G skoru, termal, basınç, nötron ve radyasyon skorlarının ağırlıklı toplamı olarak hesaplanır. Ağırlıklar ve formüller config dosyasında belirtilebilir.
-
-### Farklı reaktör tipleri veya senaryolar için özelleştirme mümkün mü?
-> (Eğer modelin özelleştirilebilirliği veya farklı parametre setleriyle çalışması hakkında bilgi verirsen, bu bölümü daha detaylı yazabilirim.)
-
----
-
-Daha fazla teknik veya bilimsel detay eklememi ister misin? Özellikle Awora-FLX’in teorik altyapısı, kullanılan denklemler veya uygulama alanları hakkında ek bilgi verirsen, README’yi daha da zenginleştirebilirim.
