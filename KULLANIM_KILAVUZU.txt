@@ -1,0 +1,73 @@
+AWORA-REACTOR-CS KULLANIM KILAVUZU
+==================================
+
+GENEL BİLGİ:
+-------------
+Awora-Reactor-CS, verilen ham veri ve yapılandırma dosyası ile nükleer reaktör simülasyonu ve risk analizi yapan bir Python uygulamasıdır. Tüm hesaplama ve çıktı işlemleri tek dosya (awora_reactor.py) üzerinden yürütülür.
+
+DOSYA YAPISI:
+-------------
+- awora_reactor.py         : Ana uygulama dosyası (tüm işlevler burada)
+- KULLANIM_KILAVUZU.txt    : Bu kullanım kılavuzu
+- config.json              : Yapılandırma dosyası (kendi parametrelerinizi girin)
+- input.json               : Ham veri dosyası (simülasyon girdileri)
+- output.json              : Sonuçların kaydedileceği dosya
+- awora_reactor.log        : Otomatik oluşturulan log dosyası
+- (isteğe bağlı) aşama_log.json : Aşamalı hesaplama log dosyası
+
+KOMUT SATIRI KULLANIMI:
+-----------------------
+Terminalde çalıştırmak için:
+
+python awora_reactor.py --config config.json --data input.json --output output.json
+
+Ekstra seçenekler:
+  --print           : Sonuçları ekrana da yazdırır
+  --step-log dosya  : Her hesaplama adımını JSON olarak ayrı dosyaya kaydeder
+
+ÖRNEK:
+------
+python awora_reactor.py --config config.json --data input.json --output sonuc.json --print --step-log asama_log.json
+
+GEREKLİ DOSYALAR:
+-----------------
+1. config.json
+{
+  "awora_flx_parametreleri": {
+    "DT": 0.01, "alpha": 0.001, ...
+  },
+  "simulasyon_ayarlari": {
+    "zaman_araligi": [0, 10],
+    "zaman_adim_sayisi": 100
+  }
+}
+
+2. input.json
+{
+  "TS": 1.0,
+  "BS": 1.0,
+  "NS": 1.0,
+  "RS": 1.0,
+  "dP": 0.0,
+  "Radyasyon_Dozu": 0.0
+}
+
+ÇIKTI DOSYASI:
+--------------
+Çıktı dosyası (output.json), her zaman adımı için skorları ve risk değerini içerir.
+
+LOG SİSTEMİ:
+------------
+- awora_reactor.log: Tüm bilgi, uyarı ve hata mesajları burada tutulur.
+- --step-log ile her adımda ara değerler ayrı bir JSON dosyasına kaydedilir.
+
+TEST:
+-----
+Test için:
+python awora_reactor.py test
+
+SORUNLAR VE DESTEK:
+-------------------
+- Hatalar log dosyasında ayrıntılı olarak bulunur.
+- Girdi dosyalarınızın formatını ve parametrelerinizi kontrol edin.
+- Daha fazla bilgi için awora_reactor.py dosyasındaki açıklamaları inceleyin.

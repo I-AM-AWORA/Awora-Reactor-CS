@@ -17,7 +17,7 @@
       "w_RS": 0.25
     },
     "simulasyon_ayarlari": {
-      "zaman_araligi": [0, 5],
-      "zaman_adim_sayisi": 50
+      "zaman_araligi": [0, 10],
+      "zaman_adim_sayisi": 100
     }
   }
